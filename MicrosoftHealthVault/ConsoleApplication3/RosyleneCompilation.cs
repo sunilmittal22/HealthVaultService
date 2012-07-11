@@ -55,7 +55,6 @@ namespace TSGHealtVaultService
             DbCommand cmdHealthTypeMapping = dbGetHealthTypeMapping.GetStoredProcCommand("TSG_HV_GetHealthTypeMapping");
             DbCommand cmdHealthVaultModuleTypeMapping = dbGetHealthVaultModuleTypeMapping.GetStoredProcCommand("TSG_HV_GetHealthVaultModuleTypeMapping");
  
-
             try
             {
 

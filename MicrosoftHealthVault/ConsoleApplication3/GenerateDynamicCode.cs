@@ -304,6 +304,7 @@ namespace ConsoleApplication3
 
         public string createScriptForHalthVaultModuleItem(List<HealthModel> _healthModel, bool save)
         {
+            StringBuilder _strModulesScript = new StringBuilder();
             _healthModel.ForEach(_model =>
             {
                 StringBuilder _strModuleScript = new StringBuilder();
@@ -360,7 +361,17 @@ namespace ConsoleApplication3
                     {
 
                         _strModuleScript.AppendFormat("{0}.{1}={2};", mTypeModelObject, _localPremitiveType.FieldName, createFieldAssignment(_localPremitiveType.FieldType, mcurrentModelType + "." + _localPremitiveType.FieldName));
+                      
                     });
+                //Fetch all the nonpremitive Types
+                var nonpremitiveType = _model.healtVaultModuleields.FindAll(delegate(HealthVaultFields hf) { return hf.isPremitive == false; });
+                nonpremitiveType.ForEach(_localPremitiveType =>
+                {
+
+                  _strModuleScript.Append(  bindModelwithFields(_model, _localPremitiveType, mTypeModelObject, mcurrentModelType));
+
+                });
+               
                 _strModuleScript.Append("}");
                 #endregion
 
@@ -386,9 +397,9 @@ namespace ConsoleApplication3
                 _strModuleScript.Append(string.Join(Environment.NewLine, strClassess.ToArray()));
                 _strModuleScript.Append("}");
                 #endregion
-
+                _strModulesScript.Append(_strModuleScript.ToString());
             });
-            return "";
+            return _strModulesScript.ToString();
         }
         public string createFieldAssignment(string type, string field)
         {
@@ -497,20 +508,32 @@ namespace ConsoleApplication3
                 });
             }
         }
-        public string bindModelwithFields(HealthModel _model,HealthVaultFields _nonPremitiveField)
+        public string bindModelwithFields(HealthModel _model, HealthVaultFields _nonPremitiveField, string mTypeModelObject, string mcurrentModelType)
         {
             StringBuilder _strModuleScript = new StringBuilder();
             _nonPremitiveField.healthVaultFields.ForEach( _field => {
                 if (_field.isPremitive == false)
                 {
-
+                    _strModuleScript.Append(bindModelwithFields(_model, _field, mTypeModelObject, mcurrentModelType));
                 }
                 else
                 {
-                    _strModuleScript.AppendFormat("{0}.{1}={2};", mTypeModelObject, _localPremitiveType.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
+                    _strModuleScript.AppendFormat("{0}.{1}=\"\"");
+                    if (_field.CollectionObject)
+                    {
+                        _strModuleScript.AppendFormat("foreach (var _{0} in {0}.{1})", _field.FieldName, mcurrentModelType);
+                        _strModuleScript.Append("{");
+                        _strModuleScript.AppendFormat("{0}.{1}={0}.{1} +{2};", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
+                        _strModuleScript.Append("}");
+
+                    }
+                    else
+                    {
+                        _strModuleScript.AppendFormat("{0}.{1}={2};", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
+                    }
                 }
             });
-            return "";
+            return _strModuleScript.ToString();
         }
     }
 }
