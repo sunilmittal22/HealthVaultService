@@ -367,8 +367,7 @@ namespace ConsoleApplication3
                 var nonpremitiveType = _model.healtVaultModuleields.FindAll(delegate(HealthVaultFields hf) { return hf.isPremitive == false; });
                 nonpremitiveType.ForEach(_localPremitiveType =>
                 {
-
-                  _strModuleScript.Append(  bindModelwithFields(_model, _localPremitiveType, mTypeModelObject, mcurrentModelType));
+                     _strModuleScript.Append(bindModelwithFields(_model, _localPremitiveType, mTypeModelObject, mcurrentModelType));
 
                 });
                
@@ -514,22 +513,23 @@ namespace ConsoleApplication3
             _nonPremitiveField.healthVaultFields.ForEach( _field => {
                 if (_field.isPremitive == false)
                 {
-                    _strModuleScript.Append(bindModelwithFields(_model, _field, mTypeModelObject, mcurrentModelType));
+                    _strModuleScript.Append(bindModelwithFields(_model, _field, _field.FieldName + "Model", _field.FieldType));
                 }
                 else
                 {
-                    _strModuleScript.AppendFormat("{0}.{1}=\"\"");
+                   
                     if (_field.CollectionObject)
-                    {
+                    { 
+                        _strModuleScript.AppendFormat("{0}.{1}=\"\"", mTypeModelObject, _field.FieldName);
                         _strModuleScript.AppendFormat("foreach (var _{0} in {0}.{1})", _field.FieldName, mcurrentModelType);
                         _strModuleScript.Append("{");
-                        _strModuleScript.AppendFormat("{0}.{1}={0}.{1} +{2};", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
+                        _strModuleScript.AppendFormat("{0}.{1}={0}.{1} +{2}", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
                         _strModuleScript.Append("}");
 
                     }
                     else
                     {
-                        _strModuleScript.AppendFormat("{0}.{1}={2};", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
+                        _strModuleScript.AppendFormat("{0}.{1}={2}", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, mcurrentModelType + "." + _field.FieldName));
                     }
                 }
             });
