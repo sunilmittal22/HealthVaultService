@@ -28,6 +28,7 @@ namespace TSGHealthVaultService.Models
         public string FieldType { get; set; }
         public bool isPremitive { get; set; }
         public string PremitiveType { get; set; }
+        public bool CollectionObject { get; set; }
         public List<HealthVaultFields> healthVaultFields { get; set; }
     }
     public class HealthVaultFieldsMapping
@@ -36,6 +37,7 @@ namespace TSGHealthVaultService.Models
         public int MasterFieldID { get; set; }
         public int SubFieldID { get; set; }
         public bool isRequired { get; set; }
+        public bool isCollection { get; set; }
     }
     public class HealthVaultTypeFieldMapping
     {
@@ -43,6 +45,7 @@ namespace TSGHealthVaultService.Models
         public int ModuleID { get; set; }
         public int MasterTypeID { get; set; }
         public int FieldID { get; set; }
+        public bool isCollection { get; set; }
 
     }
     public enum PremitiveTypes

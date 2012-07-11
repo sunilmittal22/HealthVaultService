@@ -20,23 +20,6 @@ using System.Data.Common;
 using TSGHealthVaultService;
 using System.Threading;
 
-//namespace Host
-//{
-//    public class HostObject
-//    {
-//        // public static HealthRecordItemCollection _healthrecords;
-//        public static bool save;
-//        private Func<string> callback;
-//        internal Dictionary<string, Action> Commands = new Dictionary<string, Action>();
-//        public Func<string> Callback
-//        {
-//            get { return this.callback; }
-//            set { this.callback = value; }
-//        }
-
-//    }
-//}
-
 namespace TSGHealtVaultService
 {
 
@@ -233,7 +216,10 @@ _p =>
         _fieldModel.FieldType = _field.FieldType;
         _fieldModel.isPremitive = _field.isPremitive;
         _fieldModel.PremitiveType = _field.PremitiveType;
-
+        if (_p.isCollection)
+        {
+            _fieldModel.CollectionObject = true;
+        }
         //If the Field Does Have any more fields inside
         if (_field.isPremitive == false)
         {
@@ -277,6 +263,14 @@ _p =>
                         #region If the current field in Feild collection is found in Type Mapping Collection
 
                         var __healthVaultField = new HealthVaultFields();
+                        if (_subm.isCollection)
+                        {
+                            __healthVaultField.CollectionObject = true;
+                        }
+                        else
+                        {
+                            __healthVaultField.CollectionObject = false;
+                        }
                         __healthVaultField = _subfield;
                         //If the Field Does Have any more fields inside
                         if (_subfield.isPremitive == false)
