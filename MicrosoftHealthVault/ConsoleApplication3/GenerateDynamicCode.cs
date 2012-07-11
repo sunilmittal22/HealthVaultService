@@ -513,7 +513,12 @@ namespace ConsoleApplication3
             _nonPremitiveField.healthVaultFields.ForEach( _field => {
                 if (_field.isPremitive == false)
                 {
-                    _strModuleScript.Append(bindModelwithFields(_model, _field, _field.FieldName + "Model", _field.FieldType));
+                    _strModuleScript.AppendFormat("foreach (var __{0} in {1}.{0})", _field.FieldName, mcurrentModelType);
+                    _strModuleScript.Append("{");
+                    _strModuleScript.AppendFormat("{0}Model obj{0} = new {0}Model();", _field.FieldName);
+                    _strModuleScript.Append(bindModelwithFields(_model, _field, "_" + _field.FieldName , mcurrentModelType + "." + _field.FieldName));
+                    _strModuleScript.AppendFormat("_{0}.Add(obj{0});", _field.FieldName);
+                    _strModuleScript.Append("}");
                 }
                 else
                 {
