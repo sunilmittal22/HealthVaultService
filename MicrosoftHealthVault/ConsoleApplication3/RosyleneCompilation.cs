@@ -95,6 +95,7 @@ namespace TSGHealtVaultService
                             _field.FieldType = (Convert.ToBoolean(reader["isLookUp"])) ? "Codable" : "noncodable";
                             _field.isPremitive = Convert.ToBoolean(reader["isPremitiveType"]);
                             _field.PremitiveType = Convert.ToString(reader["PremitiveType"]);
+                            _field.CollectionObject = Convert.ToBoolean(reader["isCollection"]);
                             _fields.Add(_field);
                         }
                         Interlocked.Increment(ref counter);
@@ -117,6 +118,7 @@ namespace TSGHealtVaultService
                             _subfield.MasterFieldID = Convert.ToInt32(reader["MasterTypeID"]);
                             _subfield.SubFieldID = Convert.ToInt32(reader["SubTypeID"]);
                             _subfield.isRequired = Convert.ToBoolean(reader["isRequired"]);
+
                             _mappings.Add(_subfield);
                         }
                         Interlocked.Increment(ref counter);
@@ -139,6 +141,7 @@ namespace TSGHealtVaultService
                             _typemapping.ModuleID = Convert.ToInt32(reader["ModuleID"]);
                             _typemapping.MasterTypeID = Convert.ToInt32(reader["MasterTypeID"]);
                             _typemapping.FieldID = Convert.ToInt32(reader["isRequired"]);
+                            _typemapping.isCollection= Convert.ToBoolean(reader["isCollection"]);
                             _typemappings.Add(_typemapping);
                         }
                       Interlocked.Increment(ref counter);

@@ -365,7 +365,7 @@ namespace ConsoleApplication3
                 var nonpremitiveType = _model.healtVaultModuleields.FindAll(delegate(HealthVaultFields hf) { return hf.isPremitive == false; });
                 nonpremitiveType.ForEach(_localPremitiveType =>
                 {
-                    if (!_localPremitiveType.CollectionObject)
+                    if (_localPremitiveType.CollectionObject)
                     {
                         _strModuleScript.AppendFormat("foreach (var __{0} in {1}.{0})", _localPremitiveType.FieldName, mcurrentModelType);
                         _strModuleScript.Append("{");
@@ -373,6 +373,7 @@ namespace ConsoleApplication3
                         _strModuleScript.Append(bindModelwithFields(_model, _localPremitiveType, "obj" + _localPremitiveType.FieldName, mcurrentModelType ));
                         _strModuleScript.AppendFormat("_{0}.Add(obj{0});", _localPremitiveType.FieldName);
                         _strModuleScript.Append("}");
+                        _strModuleScript.AppendFormat("{0}.Model.Add(_{0});", _localPremitiveType.FieldName);
                         //_strModuleScript.Append(bindModelwithFields(_model, _localPremitiveType, mTypeModelObject, mcurrentModelType));
                     }
                     else
@@ -529,6 +530,7 @@ namespace ConsoleApplication3
                         _strModuleScript.AppendFormat("{0}Model obj{0} = new {0}Model();", _field.FieldName);
                         _strModuleScript.Append(bindModelwithFields(_model, _field, "obj" + _field.FieldName, mcurrentModelType + "." + _field.FieldName));
                         _strModuleScript.AppendFormat("_{0}.Add(obj{0});", _field.FieldName);
+                        _strModuleScript.AppendFormat("{0}Model.{1}Model=_{1};",_nonPremitiveField.FieldName, _field.FieldName);
                         _strModuleScript.Append("}");
                     }
                     else
@@ -541,8 +543,8 @@ namespace ConsoleApplication3
                 {                   
                     if (_field.CollectionObject)
                     { 
-                        _strModuleScript.AppendFormat("{0}.{1}=\"\"", mTypeModelObject, _field.FieldName);
-                        _strModuleScript.AppendFormat("foreach (var _{0} in {0}.{1})", _field.FieldName, mcurrentModelType);
+                        _strModuleScript.AppendFormat("{0}.{1}=\"\";", mTypeModelObject, _field.FieldName);
+                        _strModuleScript.AppendFormat("foreach (var _{0} in {1}.{0})", _field.FieldName, "__" + _nonPremitiveField.FieldName);
                         _strModuleScript.Append("{");
                         _strModuleScript.AppendFormat("{0}.{1}={0}.{1} +{2}", mTypeModelObject, _field.FieldName, createFieldAssignment(_field.FieldType, "__" + _nonPremitiveField.FieldName +  "."+  _field.FieldName));
                         _strModuleScript.Append("}");
