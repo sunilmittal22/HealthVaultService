@@ -69,25 +69,25 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Common">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.EnterpriseLibrary.Common.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.EnterpriseLibrary.Data">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.EnterpriseLibrary.Data.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.ServiceLocation.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.ServiceLocation.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.Unity.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.Unity.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Configuration">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.Unity.Configuration.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.Unity.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.Unity.Interception.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.Unity.Interception.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Practices.Unity.Interception.Configuration">
-      <HintPath>D:\Projects\ConsoleApplication3\ConsoleApplication3\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
+      <HintPath>..\..\TSGHealtVaultService\TSGHealtVaultService\bin\Microsoft.Practices.Unity.Interception.Configuration.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />

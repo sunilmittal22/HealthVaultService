@@ -448,15 +448,7 @@ namespace ConsoleApplication3
             switch (type)
             {
                 case "noncodable":
-                    return "noncodable";
-                case "codable":
-                    return "codable";
-                case "bool":
-                    return "bool";
-                case "int" :
-                    return "int";
-                case "datetime":
-                    return "datetime";
+                    return "string";
                 default:
                     return "string";
             }
